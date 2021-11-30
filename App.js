@@ -4,10 +4,16 @@ import React, { useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Constants from "./Constants";
 import Head from "./components/Head";
+import Food from "./components/Food";
+import Tail from "./components/Tail";
 
 export default function App() {
   const BoardSize = Constants.GRID_SIZE * Constants.CELL_SIZE;
   const engine = useRef(null);
+  const randomPositions = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+
   return (
     <View style={styles.canvas}>
       <GameEngine
@@ -27,6 +33,19 @@ export default function App() {
             xspeed: 0,
             yspeed: 0,
             renderer: <Head />,
+          },
+          food: {
+            position: [
+              randomPositions(0, Constants.GRID_SIZE - 1),
+              randomPositions(0, Constants.GRID_SIZE - 1),
+            ],
+            size: Constants.CELL_SIZE,
+            renderer: <Food />,
+          },
+          tail: {
+            size: Constants.CELL_SIZE,
+            elements: [],
+            renderer: <Tail />,
           }
         }}
       />
