@@ -46,6 +46,16 @@ export default function App() {
             size: Constants.CELL_SIZE,
             elements: [],
             renderer: <Tail />,
+          },
+        }}
+        systems={[GameLoop]}
+        running={isGameRunning}
+        onEvent={(e) => {
+          switch (e) {
+            case "game-over":
+              alert("Game over!");
+              setIsGameRunning(false);
+              return;
           }
         }}
       />
